@@ -17,7 +17,7 @@ def get_dogs_images():
     first_image_request = requests.get("https://dog.ceo/api/breeds/image/random")
     print(first_image_request.json())
     first_image = first_image_request.json().get('message')
-    while first_image.endswith('.jpg') == False and first_image.endswith('.png') == False:
+    while (first_image.endswith('.jpg') == False and first_image.endswith('.png') == False) or ' ' in first_image:
         first_image_request = requests.get("https://dog.ceo/api/breeds/image/random")
         print(first_image_request.json())
         first_image = first_image_request.json().get('message')
@@ -142,4 +142,3 @@ if __name__ == "__main__":
     with HTTPServer(('localhost', PORT), Handler) as httpd:
         print("Serving at port", PORT)
         httpd.serve_forever()
-
