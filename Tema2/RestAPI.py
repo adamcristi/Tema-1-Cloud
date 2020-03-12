@@ -56,8 +56,8 @@ def execute_read_query(sql_query):
         cursor.close()
     except sqlite3.Error as err:
         print("Error while executing query: ".format(err))
-
-    return record
+    else:
+        return record
 
 
 def execute_create_query(sql_query, sql_data):
@@ -71,8 +71,8 @@ def execute_create_query(sql_query, sql_data):
     except sqlite3.Error as err:
         print("Error while executing query: ".format(err))
         row_id = -1
-
-    return row_id
+    else:
+        return row_id
 
 
 def execute_update_query(sql_query, sql_data):
@@ -84,8 +84,8 @@ def execute_update_query(sql_query, sql_data):
     except sqlite3.Error as err:
         print("Error while executing query: ".format(err))
         return False
-
-    return True
+    else:
+        return True
 
 
 def execute_delete_query(sql_query, sql_data=None):
@@ -100,8 +100,8 @@ def execute_delete_query(sql_query, sql_data=None):
     except sqlite3.Error as err:
         print("Error while executing query: ".format(err))
         return False
-
-    return True
+    else:
+        return True
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -156,7 +156,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         elif re.fullmatch(r"/projects/(\d+)", self.path):
             id_project = int(re.search("(\d+)", self.path).group(1))
             read_query = """ SELECT * FROM projects
-                        WHERE id = {}; """.format(id_project)
+                            WHERE id = {}; """.format(id_project)
             data_read_query = execute_read_query(sql_query=read_query)
 
             if data_read_query is None:
@@ -233,323 +233,324 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         print(self.path)
         content_length = int(self.headers['Content-Length'])
         body = self.rfile.read(content_length)
-        data_body = json.loads(body.decode())
-
-        if self.path == '/':
-            response = {"Error": "No route is present!"}
+        try:
+            data_body = json.loads(body.decode())
+        except:
+            response = {"Error": "No data in body or the data is not in json format!"}
             self.send_data(status_code=400, data_response=response)
-
-        # /projects
-        elif re.fullmatch(r"/projects", self.path):
-            if 'name' not in data_body.keys() or not self.verify_project_body(data_body):
-                response = {"Error": "Server received incomplete or wrong body!"}
+        else:
+            if self.path == '/':
+                response = {"Error": "No route is present!"}
                 self.send_data(status_code=400, data_response=response)
-            else:
-                verification_query = """ SELECT * FROM projects
-                                         WHERE name = {}; """.format("'" + data_body.get('name') + "'")
-                data_verification_query = execute_read_query(verification_query)
-                if data_verification_query is None:
-                    response = {"Error": "Server error when trying to process the query!"}
-                    self.send_data(status_code=500, data_response=response)
-                elif len(data_verification_query) != 0:
-                    response = {"Error": "A project with that name already exists!"}
-                    self.send_data(status_code=403, data_response=response)
+
+            # /projects
+            elif re.fullmatch(r"/projects", self.path):
+                if 'name' not in data_body.keys() or not self.verify_project_body(data_body):
+                    response = {"Error": "Server received incomplete or wrong body!"}
+                    self.send_data(status_code=400, data_response=response)
                 else:
-                    insert_query = ''' INSERT INTO projects({}) 
-                                        VALUES({}) '''.format(','.join([key for key in data_body.keys()]),
-                                                              ','.join(["?" for key in data_body]))
-                    data_insert_query = tuple(value for value in data_body.values())
-                    # print(insert_query)
-                    # print(data_insert_query)
-
-                    id_project_added = execute_create_query(sql_query=insert_query, sql_data=data_insert_query)
-                    # print(id_project_added)
-
-                    if id_project_added == -1:
+                    verification_query = """ SELECT * FROM projects
+                                             WHERE name = {}; """.format("'" + data_body.get('name') + "'")
+                    data_verification_query = execute_read_query(verification_query)
+                    if data_verification_query is None:
                         response = {"Error": "Server error when trying to process the query!"}
                         self.send_data(status_code=500, data_response=response)
-                    else:
-                        retrieve_query = """ SELECT * FROM projects
-                                             WHERE id = {}; """.format(id_project_added)
-                        data_retrieve_query = execute_read_query(sql_query=retrieve_query)
-                        if data_retrieve_query is None:
-                            response = {"Error": "Server error when trying to process the query!"}
-                            self.send_data(status_code=500, data_response=response)
-                        else:
-                            self.send_data(status_code=201, data_response=data_retrieve_query[0],
-                                           location_header=r"http://localhost:8080/projects/{}".format(
-                                               str(id_project_added)))
-
-        # /projects/{project_id}/tasks
-        elif re.fullmatch(r"/projects/(\d+)/tasks", self.path):
-            if 'name' not in data_body.keys() or not self.verify_task_body(data_body):
-                response = {"Error": "Server received incomplete or wrong body!"}
-                self.send_data(status_code=400, data_response=response)
-            else:
-                id_project = int(re.search(r"(\d+)", self.path).group(1))
-                verification_project_query = """ SELECT * FROM projects
-                                                 WHERE id = {}; """.format(id_project)
-                data_verification_project_query = execute_read_query(verification_project_query)
-                if data_verification_project_query is None:
-                    response = {"Error": "Server error when trying to process the query!"}
-                    self.send_data(status_code=500, data_response=response)
-                elif len(data_verification_project_query) == 0:
-                    response = {"Error": "Project with that id not found!"}
-                    self.send_data(status_code=404, data_response=response)
-                else:
-                    verification_task_query = """ SELECT * FROM tasks
-                                                  WHERE name = {}; """.format("'" + data_body.get('name') + "'")
-                    data_verification_task_query = execute_read_query(verification_task_query)
-                    if data_verification_task_query is None:
-                        response = {"Error": "Server error when trying to process the query!"}
-                        self.send_data(status_code=500, data_response=response)
-                    elif len(data_verification_task_query) != 0:
-                        response = {"Error": "A task with that name already exists!"}
+                    elif len(data_verification_query) != 0:
+                        response = {"Error": "A project with that name already exists!"}
                         self.send_data(status_code=403, data_response=response)
                     else:
-                        data_body['project_id'] = id_project
-                        insert_query = ''' INSERT INTO tasks({}) 
-                                           VALUES({}) '''.format(','.join([key for key in data_body.keys()]),
-                                                                 ','.join(["?" for key in data_body]))
+                        insert_query = ''' INSERT INTO projects({}) 
+                                            VALUES({}) '''.format(','.join([key for key in data_body.keys()]),
+                                                                  ','.join(["?" for key in data_body]))
                         data_insert_query = tuple(value for value in data_body.values())
-                        # print(insert_query)
-                        # print(data_insert_query)
+                        id_project_added = execute_create_query(sql_query=insert_query, sql_data=data_insert_query)
 
-                        id_task_added = execute_create_query(sql_query=insert_query, sql_data=data_insert_query)
-                        # print(id_task_added)
-
-                        if id_task_added == -1:
+                        if id_project_added == -1:
                             response = {"Error": "Server error when trying to process the query!"}
                             self.send_data(status_code=500, data_response=response)
                         else:
-                            retrieve_query = """ SELECT * FROM tasks
-                                                 WHERE id = {}; """.format(id_task_added)
+                            retrieve_query = """ SELECT * FROM projects
+                                                 WHERE id = {}; """.format(id_project_added)
                             data_retrieve_query = execute_read_query(sql_query=retrieve_query)
                             if data_retrieve_query is None:
                                 response = {"Error": "Server error when trying to process the query!"}
                                 self.send_data(status_code=500, data_response=response)
                             else:
                                 self.send_data(status_code=201, data_response=data_retrieve_query[0],
-                                               location_header=r"http://localhost:8080/projects/{}/tasks/{}".format(
-                                                   str(id_project), str(id_task_added)))
+                                               location_header=r"http://localhost:8080/projects/{}".format(
+                                                   str(id_project_added)))
 
-        else:
-            response = {"Error": "Server could not answer to the given route!"}
-            self.send_data(status_code=400, data_response=response)
+            # /projects/{project_id}/tasks
+            elif re.fullmatch(r"/projects/(\d+)/tasks", self.path):
+                if 'name' not in data_body.keys() or not self.verify_task_body(data_body):
+                    response = {"Error": "Server received incomplete or wrong body!"}
+                    self.send_data(status_code=400, data_response=response)
+                else:
+                    id_project = int(re.search(r"(\d+)", self.path).group(1))
+                    verification_project_query = """ SELECT * FROM projects
+                                                     WHERE id = {}; """.format(id_project)
+                    data_verification_project_query = execute_read_query(verification_project_query)
+                    if data_verification_project_query is None:
+                        response = {"Error": "Server error when trying to process the query!"}
+                        self.send_data(status_code=500, data_response=response)
+                    elif len(data_verification_project_query) == 0:
+                        response = {"Error": "Project with that id not found!"}
+                        self.send_data(status_code=404, data_response=response)
+                    else:
+                        verification_task_query = """ SELECT * FROM tasks
+                                                      WHERE project_id = {} AND name = {}; """.format(str(id_project),
+                                                                                                      "'" + data_body.get(
+                                                                                                          'name') + "'")
+                        data_verification_task_query = execute_read_query(verification_task_query)
+                        if data_verification_task_query is None:
+                            response = {"Error": "Server error when trying to process the query!"}
+                            self.send_data(status_code=500, data_response=response)
+                        elif len(data_verification_task_query) != 0:
+                            response = {"Error": "A task with that name already exists!"}
+                            self.send_data(status_code=403, data_response=response)
+                        else:
+                            data_body['project_id'] = id_project
+                            insert_query = ''' INSERT INTO tasks({}) 
+                                               VALUES({}) '''.format(','.join([key for key in data_body.keys()]),
+                                                                     ','.join(["?" for key in data_body]))
+                            data_insert_query = tuple(value for value in data_body.values())
+                            id_task_added = execute_create_query(sql_query=insert_query, sql_data=data_insert_query)
+
+                            if id_task_added == -1:
+                                response = {"Error": "Server error when trying to process the query!"}
+                                self.send_data(status_code=500, data_response=response)
+                            else:
+                                retrieve_query = """ SELECT * FROM tasks
+                                                     WHERE id = {}; """.format(id_task_added)
+                                data_retrieve_query = execute_read_query(sql_query=retrieve_query)
+                                if data_retrieve_query is None:
+                                    response = {"Error": "Server error when trying to process the query!"}
+                                    self.send_data(status_code=500, data_response=response)
+                                else:
+                                    self.send_data(status_code=201, data_response=data_retrieve_query[0],
+                                                   location_header=r"http://localhost:8080/projects/{}/tasks/{}".format(
+                                                       str(id_project), str(id_task_added)))
+
+            else:
+                response = {"Error": "Server could not answer to the given route!"}
+                self.send_data(status_code=400, data_response=response)
 
     # PUT
     def do_PUT(self):
         print(self.path)
         content_length = int(self.headers['Content-Length'])
         body = self.rfile.read(content_length)
-        data_body = json.loads(body.decode())
-
-        if self.path == '/':
-            response = {"Error": "No route is present!"}
+        try:
+            data_body = json.loads(body.decode())
+        except:
+            response = {"Error": "No data in body or the data is not in json format!"}
             self.send_data(status_code=400, data_response=response)
-
-        # /projects/{project_id}
-        elif re.fullmatch(r"/projects/(\d+)", self.path):
-            if len(data_body) != 4 or not self.verify_project_body(data_body):
-                response = {"Error": "Server received incomplete or wrong body!"}
+        else:
+            if self.path == '/':
+                response = {"Error": "No route is present!"}
                 self.send_data(status_code=400, data_response=response)
-            else:
-                id_project = int(re.search(r"(\d+)", self.path).group(1))
-                verification_query = """ SELECT * FROM projects
-                                         WHERE id = {}; """.format(id_project)
-                data_verification_query = execute_read_query(verification_query)
-                if data_verification_query is None:
-                    response = {"Error": "Server error when trying to process the query!"}
-                    self.send_data(status_code=500, data_response=response)
-                elif len(data_verification_query) == 0:
-                    response = {"Error": "Project with that id not found!"}
-                    self.send_data(status_code=404, data_response=response)
-                else:
-                    update_query = '''UPDATE projects
-                                        SET {}
-                                        WHERE id = ?'''.format(',\n'.join([key + " = ? " for key in data_body.keys()]))
-                    data_body['id'] = id_project
-                    data_update_query = tuple(value for value in data_body.values())
-                    # print(update_query)
-                    # print(data_update_query)
 
-                    if not execute_update_query(sql_query=update_query, sql_data=data_update_query):
-                        response = {"Error": "Server error when trying to process the query!"}
-                        self.send_data(status_code=500, data_response=response)
-                    else:
-                        retrieve_query = """ SELECT * FROM projects
+            # /projects/{project_id}
+            elif re.fullmatch(r"/projects/(\d+)", self.path):
+                if len(data_body) != 4 or not self.verify_project_body(data_body):
+                    response = {"Error": "Server received incomplete or wrong body!"}
+                    self.send_data(status_code=400, data_response=response)
+                else:
+                    id_project = int(re.search(r"(\d+)", self.path).group(1))
+                    verification_query = """ SELECT * FROM projects
                                              WHERE id = {}; """.format(id_project)
-                        data_retrieve_query = execute_read_query(sql_query=retrieve_query)
-                        if data_retrieve_query is None:
-                            response = {"Error": "Server error when trying to process the query!"}
-                            self.send_data(status_code=500, data_response=response)
-                        else:
-                            self.send_data(status_code=200, data_response=data_retrieve_query[0],
-                                           location_header=r"http://localhost:8080/projects/{}".format(
-                                               str(id_project)))
-
-        # /projects/{project_id}/tasks/{task_id}
-        elif re.fullmatch(r"/projects/(\d+)/tasks/(\d+)", self.path):
-            if len(data_body) != 7 or not self.verify_task_body(data_body):
-                response = {"Error": "Server received incomplete or wrong body!"}
-                self.send_data(status_code=400, data_response=response)
-            else:
-                searched_values = re.search(r"(\d+)/tasks/(\d+)", self.path)
-                id_project = int(searched_values.group(1))
-                id_task = int(searched_values.group(2))
-                verification_project_query = """ SELECT * FROM projects
-                                                    WHERE id = {}; """.format(id_project)
-                data_verification_project_query = execute_read_query(verification_project_query)
-                if data_verification_project_query is None:
-                    response = {"Error": "Server error when trying to process the query!"}
-                    self.send_data(status_code=500, data_response=response)
-                elif len(data_verification_project_query) == 0:
-                    response = {"Error": "Project with that id not found!"}
-                    self.send_data(status_code=404, data_response=response)
-                else:
-                    verification_task_query = """ SELECT * FROM tasks
-                                                    WHERE id = {} AND project_id = {}; """.format(id_task, id_project)
-                    data_verification_task_query = execute_read_query(verification_task_query)
-                    if data_verification_task_query is None:
+                    data_verification_query = execute_read_query(verification_query)
+                    if data_verification_query is None:
                         response = {"Error": "Server error when trying to process the query!"}
                         self.send_data(status_code=500, data_response=response)
-                    elif len(data_verification_task_query) == 0:
-                        response = {"Error": "Task with that id related to that project not found!"}
+                    elif len(data_verification_query) == 0:
+                        response = {"Error": "Project with that id not found!"}
                         self.send_data(status_code=404, data_response=response)
                     else:
-                        update_query = '''UPDATE tasks
-                                        SET {}
-                                        WHERE id = ?'''.format(',\n'.join([key + " = ? " for key in data_body.keys()]))
-                        data_body['id'] = id_task
+                        update_query = '''UPDATE projects
+                                            SET {}
+                                            WHERE id = ?'''.format(
+                            ',\n'.join([key + " = ? " for key in data_body.keys()]))
+                        data_body['id'] = id_project
                         data_update_query = tuple(value for value in data_body.values())
-                        # print(update_query)
-                        # print(data_update_query)
 
                         if not execute_update_query(sql_query=update_query, sql_data=data_update_query):
                             response = {"Error": "Server error when trying to process the query!"}
                             self.send_data(status_code=500, data_response=response)
                         else:
-                            retrieve_query = """ SELECT * FROM tasks
-                                                        WHERE id = {}; """.format(id_task)
+                            retrieve_query = """ SELECT * FROM projects
+                                                 WHERE id = {}; """.format(id_project)
                             data_retrieve_query = execute_read_query(sql_query=retrieve_query)
                             if data_retrieve_query is None:
                                 response = {"Error": "Server error when trying to process the query!"}
                                 self.send_data(status_code=500, data_response=response)
                             else:
                                 self.send_data(status_code=200, data_response=data_retrieve_query[0],
-                                               location_header=r"http://localhost:8080/projects/{}/tasks/{}".format(
-                                                   str(id_project), str(id_task)))
+                                               location_header=r"http://localhost:8080/projects/{}".format(
+                                                   str(id_project)))
 
-        else:
-            response = {"Error": "Server could not answer to the given route!"}
-            self.send_data(status_code=400, data_response=response)
+            # /projects/{project_id}/tasks/{task_id}
+            elif re.fullmatch(r"/projects/(\d+)/tasks/(\d+)", self.path):
+                if len(data_body) != 7 or not self.verify_task_body(data_body):
+                    response = {"Error": "Server received incomplete or wrong body!"}
+                    self.send_data(status_code=400, data_response=response)
+                else:
+                    searched_values = re.search(r"(\d+)/tasks/(\d+)", self.path)
+                    id_project = int(searched_values.group(1))
+                    id_task = int(searched_values.group(2))
+                    verification_project_query = """ SELECT * FROM projects
+                                                        WHERE id = {}; """.format(id_project)
+                    data_verification_project_query = execute_read_query(verification_project_query)
+                    if data_verification_project_query is None:
+                        response = {"Error": "Server error when trying to process the query!"}
+                        self.send_data(status_code=500, data_response=response)
+                    elif len(data_verification_project_query) == 0:
+                        response = {"Error": "Project with that id not found!"}
+                        self.send_data(status_code=404, data_response=response)
+                    else:
+                        verification_task_query = """ SELECT * FROM tasks
+                                                    WHERE id = {} AND project_id = {}; """.format(id_task, id_project)
+                        data_verification_task_query = execute_read_query(verification_task_query)
+                        if data_verification_task_query is None:
+                            response = {"Error": "Server error when trying to process the query!"}
+                            self.send_data(status_code=500, data_response=response)
+                        elif len(data_verification_task_query) == 0:
+                            response = {"Error": "Task with that id related to that project not found!"}
+                            self.send_data(status_code=404, data_response=response)
+                        else:
+                            update_query = '''UPDATE tasks
+                                        SET {}
+                                        WHERE id = ?'''.format(',\n'.join([key + " = ? " for key in data_body.keys()]))
+                            data_body['id'] = id_task
+                            data_update_query = tuple(value for value in data_body.values())
+
+                            if not execute_update_query(sql_query=update_query, sql_data=data_update_query):
+                                response = {"Error": "Server error when trying to process the query!"}
+                                self.send_data(status_code=500, data_response=response)
+                            else:
+                                retrieve_query = """ SELECT * FROM tasks
+                                                            WHERE id = {}; """.format(id_task)
+                                data_retrieve_query = execute_read_query(sql_query=retrieve_query)
+                                if data_retrieve_query is None:
+                                    response = {"Error": "Server error when trying to process the query!"}
+                                    self.send_data(status_code=500, data_response=response)
+                                else:
+                                    self.send_data(status_code=200, data_response=data_retrieve_query[0],
+                                                   location_header=r"http://localhost:8080/projects/{}/tasks/{}".format(
+                                                       str(id_project), str(id_task)))
+
+            else:
+                response = {"Error": "Server could not answer to the given route!"}
+                self.send_data(status_code=400, data_response=response)
 
     # PATCH
     def do_PATCH(self):
         print(self.path)
         content_length = int(self.headers['Content-Length'])
         body = self.rfile.read(content_length)
-        data_body = json.loads(body.decode())
-
-        if self.path == '/':
-            response = {"Error": "No route is present!"}
+        try:
+            data_body = json.loads(body.decode())
+        except:
+            response = {"Error": "No data in body or the data is not in json format!"}
             self.send_data(status_code=400, data_response=response)
-
-        # /projects/{project_id}
-        elif re.fullmatch(r"/projects/(\d+)", self.path):
-            if not self.verify_project_body(data_body):
-                response = {"Error": "Server received incomplete or wrong body!"}
+        else:
+            if self.path == '/':
+                response = {"Error": "No route is present!"}
                 self.send_data(status_code=400, data_response=response)
-            else:
-                id_project = int(re.search(r"(\d+)", self.path).group(1))
-                verification_query = """ SELECT * FROM projects
-                                            WHERE id = {}; """.format(id_project)
-                data_verification_query = execute_read_query(verification_query)
-                if data_verification_query is None:
-                    response = {"Error": "Server error when trying to process the query!"}
-                    self.send_data(status_code=500, data_response=response)
-                elif len(data_verification_query) == 0:
-                    response = {"Error": "Project with that id not found!"}
-                    self.send_data(status_code=404, data_response=response)
-                else:
-                    update_query = '''UPDATE projects
-                                        SET {}
-                                        WHERE id = ?'''.format(',\n'.join([key + " = ? " for key in data_body.keys()]))
-                    data_body['id'] = id_project
-                    data_update_query = tuple(value for value in data_body.values())
-                    # print(update_query)
-                    # print(data_update_query)
 
-                    if not execute_update_query(sql_query=update_query, sql_data=data_update_query):
-                        response = {"Error": "Server error when trying to process the query!"}
-                        self.send_data(status_code=500, data_response=response)
-                    else:
-                        retrieve_query = """ SELECT * FROM projects
+            # /projects/{project_id}
+            elif re.fullmatch(r"/projects/(\d+)", self.path):
+                if not self.verify_project_body(data_body):
+                    response = {"Error": "Server received incomplete or wrong body!"}
+                    self.send_data(status_code=400, data_response=response)
+                else:
+                    id_project = int(re.search(r"(\d+)", self.path).group(1))
+                    verification_query = """ SELECT * FROM projects
                                                 WHERE id = {}; """.format(id_project)
-                        data_retrieve_query = execute_read_query(sql_query=retrieve_query)
-                        if data_retrieve_query is None:
-                            response = {"Error": "Server error when trying to process the query!"}
-                            self.send_data(status_code=500, data_response=response)
-                        else:
-                            self.send_data(status_code=200, data_response=data_retrieve_query[0],
-                                           location_header=r"http://localhost:8080/projects/{}".format(
-                                               str(id_project)))
-
-        # /projects/{project_id}/tasks/{task_id}
-        elif re.fullmatch(r"/projects/(\d+)/tasks/(\d+)", self.path):
-            if not self.verify_task_body(data_body):
-                response = {"Error": "Server received incomplete or wrong body!"}
-                self.send_data(status_code=400, data_response=response)
-            else:
-                searched_values = re.search(r"(\d+)/tasks/(\d+)", self.path)
-                id_project = int(searched_values.group(1))
-                id_task = int(searched_values.group(2))
-                verification_project_query = """ SELECT * FROM projects
-                                                    WHERE id = {}; """.format(id_project)
-                data_verification_project_query = execute_read_query(verification_project_query)
-                if data_verification_project_query is None:
-                    response = {"Error": "Server error when trying to process the query!"}
-                    self.send_data(status_code=500, data_response=response)
-                elif len(data_verification_project_query) == 0:
-                    response = {"Error": "Project with that id not found!"}
-                    self.send_data(status_code=404, data_response=response)
-                else:
-                    verification_task_query = """ SELECT * FROM tasks
-                                                    WHERE id = {} AND project_id = {}; """.format(id_task, id_project)
-                    data_verification_task_query = execute_read_query(verification_task_query)
-                    if data_verification_task_query is None:
+                    data_verification_query = execute_read_query(verification_query)
+                    if data_verification_query is None:
                         response = {"Error": "Server error when trying to process the query!"}
                         self.send_data(status_code=500, data_response=response)
-                    elif len(data_verification_task_query) == 0:
-                        response = {"Error": "Task with that id related to that project not found!"}
+                    elif len(data_verification_query) == 0:
+                        response = {"Error": "Project with that id not found!"}
                         self.send_data(status_code=404, data_response=response)
                     else:
-                        update_query = '''UPDATE tasks
-                                        SET {}
-                                        WHERE id = ?'''.format(',\n'.join([key + " = ? " for key in data_body.keys()]))
-                        data_body['id'] = id_task
+                        update_query = '''UPDATE projects
+                                            SET {}
+                                            WHERE id = ?'''.format(
+                            ',\n'.join([key + " = ? " for key in data_body.keys()]))
+                        data_body['id'] = id_project
                         data_update_query = tuple(value for value in data_body.values())
-                        # print(update_query)
-                        # print(data_update_query)
 
                         if not execute_update_query(sql_query=update_query, sql_data=data_update_query):
                             response = {"Error": "Server error when trying to process the query!"}
                             self.send_data(status_code=500, data_response=response)
                         else:
-                            retrieve_query = """ SELECT * FROM tasks
-                                                    WHERE id = {}; """.format(id_task)
+                            retrieve_query = """ SELECT * FROM projects
+                                                    WHERE id = {}; """.format(id_project)
                             data_retrieve_query = execute_read_query(sql_query=retrieve_query)
                             if data_retrieve_query is None:
                                 response = {"Error": "Server error when trying to process the query!"}
                                 self.send_data(status_code=500, data_response=response)
                             else:
                                 self.send_data(status_code=200, data_response=data_retrieve_query[0],
-                                               location_header=r"http://localhost:8080/projects/{}/tasks/{}".format(
-                                                   str(id_project), str(id_task)))
+                                               location_header=r"http://localhost:8080/projects/{}".format(
+                                                   str(id_project)))
 
-        else:
-            response = {"Error": "Server could not answer to the given route!"}
-            self.send_data(status_code=400, data_response=response)
+            # /projects/{project_id}/tasks/{task_id}
+            elif re.fullmatch(r"/projects/(\d+)/tasks/(\d+)", self.path):
+                if not self.verify_task_body(data_body):
+                    response = {"Error": "Server received incomplete or wrong body!"}
+                    self.send_data(status_code=400, data_response=response)
+                else:
+                    searched_values = re.search(r"(\d+)/tasks/(\d+)", self.path)
+                    id_project = int(searched_values.group(1))
+                    id_task = int(searched_values.group(2))
+                    verification_project_query = """ SELECT * FROM projects
+                                                        WHERE id = {}; """.format(id_project)
+                    data_verification_project_query = execute_read_query(verification_project_query)
+                    if data_verification_project_query is None:
+                        response = {"Error": "Server error when trying to process the query!"}
+                        self.send_data(status_code=500, data_response=response)
+                    elif len(data_verification_project_query) == 0:
+                        response = {"Error": "Project with that id not found!"}
+                        self.send_data(status_code=404, data_response=response)
+                    else:
+                        verification_task_query = """ SELECT * FROM tasks
+                                                    WHERE id = {} AND project_id = {}; """.format(id_task, id_project)
+                        data_verification_task_query = execute_read_query(verification_task_query)
+                        if data_verification_task_query is None:
+                            response = {"Error": "Server error when trying to process the query!"}
+                            self.send_data(status_code=500, data_response=response)
+                        elif len(data_verification_task_query) == 0:
+                            response = {"Error": "Task with that id related to that project not found!"}
+                            self.send_data(status_code=404, data_response=response)
+                        else:
+                            update_query = '''UPDATE tasks
+                                            SET {}
+                                            WHERE id = ?'''.format(
+                                ',\n'.join([key + " = ? " for key in data_body.keys()]))
+                            data_body['id'] = id_task
+                            data_update_query = tuple(value for value in data_body.values())
+
+                            if not execute_update_query(sql_query=update_query, sql_data=data_update_query):
+                                response = {"Error": "Server error when trying to process the query!"}
+                                self.send_data(status_code=500, data_response=response)
+                            else:
+                                retrieve_query = """ SELECT * FROM tasks
+                                                        WHERE id = {}; """.format(id_task)
+                                data_retrieve_query = execute_read_query(sql_query=retrieve_query)
+                                if data_retrieve_query is None:
+                                    response = {"Error": "Server error when trying to process the query!"}
+                                    self.send_data(status_code=500, data_response=response)
+                                else:
+                                    self.send_data(status_code=200, data_response=data_retrieve_query[0],
+                                                   location_header=r"http://localhost:8080/projects/{}/tasks/{}".format(
+                                                       str(id_project), str(id_task)))
+
+            else:
+                response = {"Error": "Server could not answer to the given route!"}
+                self.send_data(status_code=400, data_response=response)
 
     # DELETE
     def do_DELETE(self):
@@ -591,8 +592,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 delete_query = '''DELETE FROM projects WHERE id = ?'''
                 delete_tasks_query = '''DELETE FROM tasks WHERE project_id = ?'''
                 data_delete_query = tuple([id_project])
-                # print(delete_query)
-                # print(data_delete_query)
 
                 if not execute_update_query(sql_query=delete_query, sql_data=data_delete_query) or \
                         not execute_delete_query(sql_query=delete_tasks_query, sql_data=data_delete_query):
@@ -623,8 +622,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             else:
                 delete_query = """ DELETE FROM tasks WHERE project_id = ?; """
                 data_delete_query = tuple([id_project])
-                # print(delete_query)
-                # print(data_delete_query)
 
                 if not execute_delete_query(sql_query=delete_query, sql_data=data_delete_query):
                     response = {"Error": "Server error when trying to process the query!"}
@@ -666,8 +663,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 else:
                     delete_query = """ DELETE FROM tasks WHERE project_id = ? AND id = ?; """
                     data_delete_query = tuple([id_project, id_task])
-                    # print(delete_query)
-                    # print(data_delete_query)
 
                     if not execute_delete_query(sql_query=delete_query, sql_data=data_delete_query):
                         response = {"Error": "Server error when trying to process the query!"}
