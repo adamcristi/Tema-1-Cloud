@@ -13,7 +13,15 @@
 					"script": {
 						"id": "8673587c-983e-462d-9148-331bfe28cdab",
 						"exec": [
-							""
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Compare responses\", function () { ",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"No route is present!\"});",
+							"    let receivedResponse = JSON.stringify(pm.response.json());",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);",
+							"    pm.expect(identical).to.equal(true);",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -24,7 +32,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"project\"\n}"
+					"raw": "{\n\t\"name\": \"project\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/",
@@ -39,6 +48,90 @@
 				}
 			},
 			"response": [
+				{
+					"name": "400 error (no route)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:04:23 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No route is present!\"\n}"
+				},
+				{
+					"name": "400 error (no route)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:11:20 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No route is present!\"\n}"
+				},
 				{
 					"name": "400 error (no route)",
 					"originalRequest": {
@@ -84,12 +177,33 @@
 		},
 		{
 			"name": "400 error (incomplete route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0340506e-c359-45e9-ac1f-771fe037bda7",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Compare responses\", function () { ",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});",
+							"    let receivedResponse = JSON.stringify(pm.response.json());",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);",
+							"    pm.expect(identical).to.equal(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"project\"\n}"
+					"raw": "{\n\t\"name\": \"project\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/project",
@@ -103,16 +217,122 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (incomplete route)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:11:27 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				},
+				{
+					"name": "400 error (incomplete route)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:04:49 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (wrong route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95cef78d-e350-4cc9-9528-c41d8354bcfb",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Compare responses\", function () { ",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});",
+							"    let receivedResponse = JSON.stringify(pm.response.json());",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);",
+							"    pm.expect(identical).to.equal(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"project\"\n}"
+					"raw": "{\n\t\"name\": \"project\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/a",
@@ -128,16 +348,82 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (wrong route)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"a"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:11:34 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (no body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "341ae91e-d12a-432d-abd4-6729e15eff7f",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Compare responses\", function () { ",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"No data in body or the data is not in json format!\"});",
+							"    let receivedResponse = JSON.stringify(pm.response.json());",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);",
+							"    pm.expect(identical).to.equal(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/",
@@ -151,16 +437,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (no body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:11:41 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No data in body or the data is not in json format!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 201 (1 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8cfa61f-7476-4638-abda-519033dbaf51",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Project 1\", \"description\": null, \"begin_date\": null, \"end_date\": null});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 1\"\n}"
+					"raw": "{\n\t\"name\": \"Project 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -174,16 +524,84 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 201 (1 value in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:11:57 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Project 1\",\n    \"description\": null,\n    \"begin_date\": null,\n    \"end_date\": null\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 201 (2 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "779e0c1a-5f58-4a2f-9f4d-7920dc59bfb1",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 2, \"name\": \"Project 2\", \"description\": \"Cloud\", \"begin_date\": null, \"end_date\": null});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 2\",\n\t\"description\": \"Cloud\"\n}"
+					"raw": "{\n\t\"name\": \"Project 2\",\n\t\"description\": \"Cloud\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -197,16 +615,84 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 201 (2 values in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 2\",\n\t\"description\": \"Cloud\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:12:04 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/2"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"name\": \"Project 2\",\n    \"description\": \"Cloud\",\n    \"begin_date\": null,\n    \"end_date\": null\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 201 (3 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68ddeb6f-761d-43ee-85b2-685026e08b31",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 3, \"name\": \"Project 3\", \"description\": \"AI\", \"begin_date\": \"12-03-2020\", \"end_date\": null});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 3\",\n\t\"description\": \"AI\",\n\t\"begin_date\" : \"12-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Project 3\",\n\t\"description\": \"AI\",\n\t\"begin_date\" : \"12-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -220,16 +706,84 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 201 (3 values in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 3\",\n\t\"description\": \"AI\",\n\t\"begin_date\" : \"12-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:12:12 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/3"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"name\": \"Project 3\",\n    \"description\": \"AI\",\n    \"begin_date\": \"12-03-2020\",\n    \"end_date\": null\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 201 (4 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6aa83c4e-0cb9-44ad-9478-d7befd3d45fc",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 4, \"name\": \"Project 4\", \"description\": \"ML\", \"begin_date\": \"01-03-2020\", \"end_date\": \"10-03-2020\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 4\",\n\t\"description\": \"ML\",\n\t\"begin_date\" : \"01-03-2020\",\n\t\"end_date\": \"10-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Project 4\",\n\t\"description\": \"ML\",\n\t\"begin_date\" : \"01-03-2020\",\n\t\"end_date\": \"10-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -243,16 +797,84 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 201 (4 values in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 4\",\n\t\"description\": \"ML\",\n\t\"begin_date\" : \"01-03-2020\",\n\t\"end_date\": \"10-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:12:19 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/4"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"name\": \"Project 4\",\n    \"description\": \"ML\",\n    \"begin_date\": \"01-03-2020\",\n    \"end_date\": \"10-03-2020\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 400 error (value not present)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65d5b853-c82a-49a4-9b5f-92f569459e34",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"description\": \"project\"\n}"
+					"raw": "{\n\t\"description\": \"project\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -266,16 +888,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 400 error (value not present)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:12:25 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 400 error (wrong value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a46288a-d3d5-4af1-adb5-432fe8f55f56",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"project\",\n\t\"year\": 2020\n}"
+					"raw": "{\n\t\"name\": \"project\",\n\t\"year\": 2020\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -289,16 +975,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 400 error (wrong value in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\",\n\t\"year\": 2020\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:12:52 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 403 error (name used)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b717ca60-1fca-407f-803b-12231bb1be11",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"A project with that name already exists!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 4\"\n}"
+					"raw": "{\n\t\"name\": \"Project 4\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -312,16 +1062,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 403 error (name used)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 4\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:13:14 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"A project with that name already exists!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 201 (1 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "992ae009-1c54-40bd-bab7-1cd6b3a0f04c",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": null, \"priority\": null, \"status\": null, \"begin_date\": null, \"end_date\": null, \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -337,16 +1151,86 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 201 (1 value in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:13:25 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": null,\n    \"priority\": null,\n    \"status\": null,\n    \"begin_date\": null,\n    \"end_date\": null,\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 201 (2 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "761e3746-7300-4eea-ac27-ce7720d5db87",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 2, \"name\": \"Task 2\", \"description\": \"process data\", \"priority\": null, \"status\": null, \"begin_date\": null, \"end_date\": null, \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 2\",\n\t\"description\": \"process data\"\n}"
+					"raw": "{\n\t\"name\": \"Task 2\",\n\t\"description\": \"process data\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -362,16 +1246,86 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 201 (2 value in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 2\",\n\t\"description\": \"process data\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:13:35 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/2"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"name\": \"Task 2\",\n    \"description\": \"process data\",\n    \"priority\": null,\n    \"status\": null,\n    \"begin_date\": null,\n    \"end_date\": null,\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 201 (3 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64f60a93-644a-47b3-ab16-f865c98a9ae0",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 3, \"name\": \"Task 3\", \"description\": \"process image\", \"priority\": 1, \"status\": null, \"begin_date\": null, \"end_date\": null, \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 3\",\n\t\"description\": \"process image\",\n\t\"priority\": 1\n}"
+					"raw": "{\n\t\"name\": \"Task 3\",\n\t\"description\": \"process image\",\n\t\"priority\": 1\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -387,16 +1341,86 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 201 (3 value in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 3\",\n\t\"description\": \"process image\",\n\t\"priority\": 1\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:13:43 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/3"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"name\": \"Task 3\",\n    \"description\": \"process image\",\n    \"priority\": 1,\n    \"status\": null,\n    \"begin_date\": null,\n    \"end_date\": null,\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 201 (4 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f401190-6176-4133-8ac4-b124cf113993",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 4, \"name\": \"Task 4\", \"description\": \"process pdf\", \"priority\": 2, \"status\": \"created\", \"begin_date\": null, \"end_date\": null, \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 4\",\n\t\"description\": \"process pdf\",\n\t\"priority\": 2,\n\t\"status\": \"created\"\n}"
+					"raw": "{\n\t\"name\": \"Task 4\",\n\t\"description\": \"process pdf\",\n\t\"priority\": 2,\n\t\"status\": \"created\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -412,16 +1436,86 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 201 (4 value in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 4\",\n\t\"description\": \"process pdf\",\n\t\"priority\": 2,\n\t\"status\": \"created\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:13:51 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/4"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"name\": \"Task 4\",\n    \"description\": \"process pdf\",\n    \"priority\": 2,\n    \"status\": \"created\",\n    \"begin_date\": null,\n    \"end_date\": null,\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 201 (5 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "402190da-178f-4216-95ae-ecd1f50420c0",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 5, \"name\": \"Task 5\", \"description\": \"process files\", \"priority\": 3, \"status\": \"started\", \"begin_date\": \"12-03-2020\", \"end_date\": null, \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 5\",\n\t\"description\": \"process files\",\n\t\"priority\": 3,\n\t\"status\": \"started\",\n\t\"begin_date\": \"12-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Task 5\",\n\t\"description\": \"process files\",\n\t\"priority\": 3,\n\t\"status\": \"started\",\n\t\"begin_date\": \"12-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -437,16 +1531,86 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 201 (5 value in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 5\",\n\t\"description\": \"process files\",\n\t\"priority\": 3,\n\t\"status\": \"started\",\n\t\"begin_date\": \"12-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:14:03 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 5,\n    \"name\": \"Task 5\",\n    \"description\": \"process files\",\n    \"priority\": 3,\n    \"status\": \"started\",\n    \"begin_date\": \"12-03-2020\",\n    \"end_date\": null,\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 201 (6 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f426ed2-22dd-4241-9f17-eeccaaeba3a6",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 6, \"name\": \"Task 6\", \"description\": \"process zips\", \"priority\": 4, \"status\": \"ended\", \"begin_date\": \"01-03-2020\", \"end_date\": \"10-03-2020\", \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 6\",\n\t\"description\": \"process zips\",\n\t\"priority\": 4,\n\t\"status\": \"ended\",\n\t\"begin_date\": \"01-03-2020\",\n\t\"end_date\": \"10-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Task 6\",\n\t\"description\": \"process zips\",\n\t\"priority\": 4,\n\t\"status\": \"ended\",\n\t\"begin_date\": \"01-03-2020\",\n\t\"end_date\": \"10-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -462,16 +1626,86 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 201 (6 value in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 6\",\n\t\"description\": \"process zips\",\n\t\"priority\": 4,\n\t\"status\": \"ended\",\n\t\"begin_date\": \"01-03-2020\",\n\t\"end_date\": \"10-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:14:12 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/6"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 6,\n    \"name\": \"Task 6\",\n    \"description\": \"process zips\",\n    \"priority\": 4,\n    \"status\": \"ended\",\n    \"begin_date\": \"01-03-2020\",\n    \"end_date\": \"10-03-2020\",\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 201 (same name different projects)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32d89f1c-ee80-4fe7-a2b4-140e6f5e10b3",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 7, \"name\": \"Task 1\", \"description\": null, \"priority\": null, \"status\": null, \"begin_date\": null, \"end_date\": null, \"project_id\": 2});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/2/tasks",
@@ -487,16 +1721,86 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 201 (same name different projects)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/2/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"2",
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:14:28 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/2/tasks/7"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 7,\n    \"name\": \"Task 1\",\n    \"description\": null,\n    \"priority\": null,\n    \"status\": null,\n    \"begin_date\": null,\n    \"end_date\": null,\n    \"project_id\": 2\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 400 error (value not present)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2740c1ef-8c90-4d52-8e86-cd370223fd9a",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"status\": \"created\"\n}"
+					"raw": "{\n\t\"status\": \"created\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -512,16 +1816,82 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 400 error (value not present)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"status\": \"created\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:14:38 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 400 error (wrong values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56271d61-dc8e-438a-9067-324459788257",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"date\": \"12-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"date\": \"12-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -537,16 +1907,82 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 400 error (wrong values in body)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"date\": \"12-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:14:45 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 403 error (name used)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecaa96fc-2a20-4d48-bff5-42ad68cb9efa",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"A task with that name already exists!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -562,16 +1998,82 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 403 error (name used)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:14:56 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"A task with that name already exists!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 error (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d5bfb277-535e-4014-b775-ac61677d109b",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5/tasks",
@@ -587,10 +2089,75 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 error (project not found)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5",
+								"tasks"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:15:08 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (no route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1367db21-cd12-48f4-a3c5-3ced977d204a",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"No route is present!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -599,7 +2166,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/",
@@ -613,10 +2181,73 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (no route)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:15:20 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No route is present!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (incomplete route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b68860a-2321-4fce-a3db-84f689578bf6",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -625,7 +2256,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/project",
@@ -639,10 +2271,73 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (incomplete route)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:15:30 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (wrong route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23c7c92a-e50b-405b-a83c-6ecada899572",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -651,7 +2346,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/a",
@@ -668,10 +2364,76 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (wrong route)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"a"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:15:39 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 200 (all)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ea68fca-aad6-47b0-9fda-5aab0c549316",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify([{\"id\": 1, \"name\": \"Project 1\", \"description\": null, \"begin_date\": null, \"end_date\": null}, {\"id\": 2, \"name\": \"Project 2\", \"description\": \"Cloud\", \"begin_date\": null, \"end_date\": null}, {\"id\": 3, \"name\": \"Project 3\", \"description\": \"AI\", \"begin_date\": \"12-03-2020\", \"end_date\": null}, {\"id\": 4, \"name\": \"Project 4\", \"description\": \"ML\", \"begin_date\": \"01-03-2020\", \"end_date\": \"10-03-2020\"}]);\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -680,7 +2442,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -694,10 +2457,73 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 200 (all)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:15:48 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Project 1\",\n        \"description\": null,\n        \"begin_date\": null,\n        \"end_date\": null\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Project 2\",\n        \"description\": \"Cloud\",\n        \"begin_date\": null,\n        \"end_date\": null\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Project 3\",\n        \"description\": \"AI\",\n        \"begin_date\": \"12-03-2020\",\n        \"end_date\": null\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Project 4\",\n        \"description\": \"ML\",\n        \"begin_date\": \"01-03-2020\",\n        \"end_date\": \"10-03-2020\"\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "Projects - 200 (only one)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c691efc-ec5c-4cbd-b1cf-b85b35e600a6",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Project 1\", \"description\": null, \"begin_date\": null, \"end_date\": null});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -706,7 +2532,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -721,10 +2548,74 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 200 (only one)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:15:57 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Project 1\",\n    \"description\": null,\n    \"begin_date\": null,\n    \"end_date\": null\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 404 error (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d51452a-490c-48ea-b284-13b0d4253313",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -733,7 +2624,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5",
@@ -748,10 +2640,74 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 404 error (project not found)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:16:03 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (all per project)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cbd287f8-91ad-4189-a4ea-9579098a7bd4",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify([{\"id\": 1, \"name\": \"Task 1\", \"description\": null, \"priority\": null, \"status\": null, \"begin_date\": null, \"end_date\": null, \"project_id\": 1}, {\"id\": 2, \"name\": \"Task 2\", \"description\": \"process data\", \"priority\": null, \"status\": null, \"begin_date\": null, \"end_date\": null, \"project_id\": 1}, {\"id\": 3, \"name\": \"Task 3\", \"description\": \"process image\", \"priority\": 1, \"status\": null, \"begin_date\": null, \"end_date\": null, \"project_id\": 1}, {\"id\": 4, \"name\": \"Task 4\", \"description\": \"process pdf\", \"priority\": 2, \"status\": \"created\", \"begin_date\": null, \"end_date\": null, \"project_id\": 1}, {\"id\": 5, \"name\": \"Task 5\", \"description\": \"process files\", \"priority\": 3, \"status\": \"started\", \"begin_date\": \"12-03-2020\", \"end_date\": null, \"project_id\": 1}, {\"id\": 6, \"name\": \"Task 6\", \"description\": \"process zips\", \"priority\": 4, \"status\": \"ended\", \"begin_date\": \"01-03-2020\", \"end_date\": \"10-03-2020\", \"project_id\": 1}]);\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -760,7 +2716,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks",
@@ -776,10 +2733,75 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (all per project)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:16:13 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Task 1\",\n        \"description\": null,\n        \"priority\": null,\n        \"status\": null,\n        \"begin_date\": null,\n        \"end_date\": null,\n        \"project_id\": 1\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Task 2\",\n        \"description\": \"process data\",\n        \"priority\": null,\n        \"status\": null,\n        \"begin_date\": null,\n        \"end_date\": null,\n        \"project_id\": 1\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Task 3\",\n        \"description\": \"process image\",\n        \"priority\": 1,\n        \"status\": null,\n        \"begin_date\": null,\n        \"end_date\": null,\n        \"project_id\": 1\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Task 4\",\n        \"description\": \"process pdf\",\n        \"priority\": 2,\n        \"status\": \"created\",\n        \"begin_date\": null,\n        \"end_date\": null,\n        \"project_id\": 1\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Task 5\",\n        \"description\": \"process files\",\n        \"priority\": 3,\n        \"status\": \"started\",\n        \"begin_date\": \"12-03-2020\",\n        \"end_date\": null,\n        \"project_id\": 1\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Task 6\",\n        \"description\": \"process zips\",\n        \"priority\": 4,\n        \"status\": \"ended\",\n        \"begin_date\": \"01-03-2020\",\n        \"end_date\": \"10-03-2020\",\n        \"project_id\": 1\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (one)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6a3f514-0f1f-4905-a79c-15a353fe69cc",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": null, \"priority\": null, \"status\": null, \"begin_date\": null, \"end_date\": null, \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -788,7 +2810,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -805,10 +2828,76 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (one)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:16:24 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": null,\n    \"priority\": null,\n    \"status\": null,\n    \"begin_date\": null,\n    \"end_date\": null,\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 error (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe8be56c-92a6-4fcb-9bf4-cf1dd2996f8b",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -817,7 +2906,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5/tasks/1",
@@ -834,10 +2924,76 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 error (project not found)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:16:33 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 error (task not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70617805-086c-4d65-b00c-4007275c36e8",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Task with that id related to that project not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -846,7 +3002,8 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/7",
@@ -863,16 +3020,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 error (task not found)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"7"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:16:42 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Task with that id related to that project not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (no route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f575800e-7e4e-4d7e-ba54-8be681d6b9a0",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"No route is present!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"project\"\n}"
+					"raw": "{\n\t\"name\": \"project\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/",
@@ -886,16 +3110,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (no route)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:16:53 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No route is present!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (incomplete route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c96e9ad-9dbd-4e39-b55a-f28f1184d1b7",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"project\"\n}"
+					"raw": "{\n\t\"name\": \"project\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/project",
@@ -909,16 +3197,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (incomplete route)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:17:06 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (wrong route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b60028fc-a4a8-45a0-894c-0e8536b8f1c5",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"project\"\n}"
+					"raw": "{\n\t\"name\": \"project\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/a",
@@ -935,16 +3287,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (wrong route)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"project\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"a"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:17:20 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (no body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "950c6ef4-0c0e-4bf5-96fa-09e63123e6b2",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"No data in body or the data is not in json format!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/",
@@ -958,16 +3377,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (no body)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:17:28 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No data in body or the data is not in json format!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "837bb959-33a5-4145-aa3f-0af3fa33f155",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Project 5\", \"description\": \"Web\", \"begin_date\": \"05-03-2020\", \"end_date\": \"06-05-2020\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -982,16 +3465,85 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 200",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:17:41 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Project 5\",\n    \"description\": \"Web\",\n    \"begin_date\": \"05-03-2020\",\n    \"end_date\": \"06-05-2020\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 400 error (fewer values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24eab3f4-9627-479d-a2f0-8352e3910aa2",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -1006,16 +3558,81 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 400 error (fewer values in body)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:18:09 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 400 error (wrong values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14f17df5-8e0d-42d7-b6a9-2d805bf52b43",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"value\": 2\n}"
+					"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"value\": 2\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -1030,16 +3647,81 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 400 error (wrong values in body)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"value\": 2\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:18:23 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 404 error (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85004ba6-a2b4-4791-ba1c-4bf48e9fcf5c",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5",
@@ -1054,16 +3736,81 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 404 error (project not found)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 5\",\n\t\"description\": \"Web\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:18:41 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb19688c-869f-46ae-9e35-35381e5a718c",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 7\", \"description\": \"scrapper\", \"priority\": 1, \"status\": \"created\", \"begin_date\": \"05-03-2020\", \"end_date\": \"06-05-2020\", \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}"
+					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1080,16 +3827,87 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:18:53 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 7\",\n    \"description\": \"scrapper\",\n    \"priority\": 1,\n    \"status\": \"created\",\n    \"begin_date\": \"05-03-2020\",\n    \"end_date\": \"06-05-2020\",\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 400 error (fewer values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b38b487f-3cd3-415d-b06c-973d963fee2a",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1106,16 +3924,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 400 error (fewer values in body)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:19:05 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 400 error (wrong values in body) ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c8d7410-3270-41fb-b722-aa75e58de57b",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"value\": 2\n}"
+					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"value\": 2\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1132,16 +4017,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 400 error (wrong values in body) ",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"value\": 2\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:19:27 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 error (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "17c3f3ac-5dcc-4ad0-b3f7-79e3772fec4f",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}"
+					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5/tasks/1",
@@ -1158,16 +4110,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 error (project not found)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:19:38 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 error (task not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c1fc5d1-d17e-4cd6-a520-2d6c23d3bf8a",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Task with that id related to that project not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}"
+					"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/7",
@@ -1184,16 +4203,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 error (task not found)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 7\",\n\t\"description\": \"scrapper\",\n\t\"priority\": 1,\n\t\"status\": \"created\",\n\t\"begin_date\": \"05-03-2020\",\n\t\"end_date\": \"06-05-2020\",\n\t\"project_id\": 1\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"7"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:19:47 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Task with that id related to that project not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (no route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "882c55a7-1292-4489-9870-6d04b70b84e3",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"No route is present!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/",
@@ -1207,16 +4293,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (no route)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:19:56 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No route is present!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (incomplete route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cf07613-13c1-41ea-b521-962e08ace41c",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/project",
@@ -1230,16 +4380,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (incomplete route)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:20:10 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (wrong route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af252587-5843-436c-b9b1-c13fbe4956f3",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/a",
@@ -1256,16 +4470,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (wrong route)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"a"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:20:44 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (no body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d524b269-56f7-448c-9754-5b5848018d8a",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"No data in body or the data is not in json format!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/",
@@ -1279,16 +4560,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (no body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:21:03 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No data in body or the data is not in json format!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 200 (1 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a9ff6c6-eed4-40d0-89ee-67a688c70a6c",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Project 1\", \"description\": \"Web\", \"begin_date\": \"05-03-2020\", \"end_date\": \"06-05-2020\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 1\"\n}"
+					"raw": "{\n\t\"name\": \"Project 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -1303,16 +4648,85 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 200 (1 value in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:21:21 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Project 1\",\n    \"description\": \"Web\",\n    \"begin_date\": \"05-03-2020\",\n    \"end_date\": \"06-05-2020\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 200 (2 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0b6648c-bd55-4584-8291-15f62ca5a8d9",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Project 1\", \"description\": \"NN\", \"begin_date\": \"05-03-2020\", \"end_date\": \"06-05-2020\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\"\n}"
+					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -1331,12 +4745,33 @@
 		},
 		{
 			"name": "Projects - 200 (3 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40b1183f-44ce-4a8c-ae8e-81c2f73a0456",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Project 1\", \"description\": \"NN\", \"begin_date\": \"07-03-2020\", \"end_date\": \"06-05-2020\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"begin_date\": \"07-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"begin_date\": \"07-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -1351,16 +4786,85 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 200 (3 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"begin_date\": \"07-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:21:41 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Project 1\",\n    \"description\": \"NN\",\n    \"begin_date\": \"07-03-2020\",\n    \"end_date\": \"06-05-2020\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 200 (4 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55ee6d9b-4bd5-478e-9ee0-a77acc2ebb49",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Project 1\", \"description\": \"NN\", \"begin_date\": \"07-03-2020\", \"end_date\": \"08-03-2020\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -1375,16 +4879,85 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 200 (4 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:21:55 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Project 1\",\n    \"description\": \"NN\",\n    \"begin_date\": \"07-03-2020\",\n    \"end_date\": \"08-03-2020\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 400 error (wrong values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f468e4b-8f90-4bc5-86ee-2ccf73133664",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"value\": 2\n}"
+					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"value\": 2\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -1399,16 +4972,81 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 400 error (wrong values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\",\n\t\"value\": 2\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:22:06 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 404 error (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dac8a8aa-8781-4304-9013-bde85f840c7a",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\"\n}"
+					"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5",
@@ -1423,16 +5061,81 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 404 error (project not found)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Project 1\",\n\t\"description\": \"NN\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:22:24 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (1 value in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0a4cc7f-8490-428a-9d75-1217298b1eb2",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": \"scrapper\", \"priority\": 1, \"status\": \"created\", \"begin_date\": \"05-03-2020\", \"end_date\": \"06-05-2020\", \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1449,16 +5152,87 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (1 value in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:22:35 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": \"process text\",\n    \"priority\": 1,\n    \"status\": \"created\",\n    \"begin_date\": \"05-03-2020\",\n    \"end_date\": \"06-05-2020\",\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (2 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c356fb88-3de9-4bf9-8a9d-4c02e501fa88",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": \"process text\", \"priority\": 1, \"status\": \"created\", \"begin_date\": \"05-03-2020\", \"end_date\": \"06-05-2020\", \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1475,16 +5249,136 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (2 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:22:46 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": \"process text\",\n    \"priority\": 1,\n    \"status\": \"created\",\n    \"begin_date\": \"05-03-2020\",\n    \"end_date\": \"06-05-2020\",\n    \"project_id\": 1\n}"
+				},
+				{
+					"name": "Tasks - 200 (2 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:21:33 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": \"process text\",\n    \"priority\": 1,\n    \"status\": \"created\",\n    \"begin_date\": \"05-03-2020\",\n    \"end_date\": \"06-05-2020\",\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (3 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "586afebf-2fce-421e-a06b-b8d91286a43a",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": \"process text\", \"priority\": 2, \"status\": \"created\", \"begin_date\": \"05-03-2020\", \"end_date\": \"06-05-2020\", \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1501,16 +5395,87 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (3 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:23:01 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": \"process text\",\n    \"priority\": 2,\n    \"status\": \"created\",\n    \"begin_date\": \"05-03-2020\",\n    \"end_date\": \"06-05-2020\",\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (4 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c81b91b0-0ae4-491e-8b65-ba39d916e574",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": \"process text\", \"priority\": 2, \"status\": \"started\", \"begin_date\": \"05-03-2020\", \"end_date\": \"06-05-2020\", \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1527,16 +5492,87 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (4 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:23:13 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": \"process text\",\n    \"priority\": 2,\n    \"status\": \"started\",\n    \"begin_date\": \"05-03-2020\",\n    \"end_date\": \"06-05-2020\",\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (5 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e0612195-041c-4c27-876d-322c745e26e7",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": \"process text\", \"priority\": 2, \"status\": \"started\", \"begin_date\": \"07-03-2020\", \"end_date\": \"06-05-2020\", \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1553,16 +5589,87 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (5 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:23:24 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": \"process text\",\n    \"priority\": 2,\n    \"status\": \"started\",\n    \"begin_date\": \"07-03-2020\",\n    \"end_date\": \"06-05-2020\",\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (6 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab41f1e2-607d-4871-b999-044cacb53b26",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": \"process text\", \"priority\": 2, \"status\": \"started\", \"begin_date\": \"07-03-2020\", \"end_date\": \"08-03-2020\", \"project_id\": 1});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\"\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\"\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1579,16 +5686,87 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (6 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\"\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:23:36 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": \"process text\",\n    \"priority\": 2,\n    \"status\": \"started\",\n    \"begin_date\": \"07-03-2020\",\n    \"end_date\": \"08-03-2020\",\n    \"project_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (7 values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "26a87b78-e5de-48ef-9a2c-3c8901d1ea88",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"id\": 1, \"name\": \"Task 1\", \"description\": \"process text\", \"priority\": 2, \"status\": \"started\", \"begin_date\": \"07-03-2020\", \"end_date\": \"08-03-2020\", \"project_id\": 2});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/1",
@@ -1605,16 +5783,87 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (7 values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:23:46 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:8080/projects/1/tasks/1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"Task 1\",\n    \"description\": \"process text\",\n    \"priority\": 2,\n    \"status\": \"started\",\n    \"begin_date\": \"07-03-2020\",\n    \"end_date\": \"08-03-2020\",\n    \"project_id\": 2\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 400 (wrong values in body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd019036-1b26-4fb8-9928-141f28427bb1",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server received incomplete or wrong body!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"value\": 2\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"value\": 2\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/2/tasks/1",
@@ -1631,16 +5880,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 400 (wrong values in body)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"value\": 2\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/2/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"2",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:23:58 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server received incomplete or wrong body!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86c2179d-df48-4375-963f-66878ac5c2fa",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5/tasks/1",
@@ -1657,16 +5973,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 (project not found)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:24:14 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 (task not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8ad37cc-e407-4ef6-8d32-8b65da64eacc",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Task with that id related to that project not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}"
+					"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/7",
@@ -1683,16 +6066,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 (task not found)",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Task 1\",\n\t\"description\": \"process text\",\n\t\"priority\": 2,\n\t\"status\": \"started\",\n\t\"begin_date\": \"07-03-2020\",\n\t\"end_date\": \"08-03-2020\",\n\t\"project_id\": 2\n}",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"7"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:24:26 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Task with that id related to that project not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (no route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bdd1b276-3171-4217-80d4-4650fc8c8460",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"No route is present!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/",
@@ -1706,16 +6156,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (no route)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:24:41 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No route is present!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (incomplete route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7e11836-27ec-431f-9d7d-e08e5d383ec8",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/project",
@@ -1729,16 +6243,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (incomplete route)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:25:02 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "400 error (wrong route)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e1bf6350-6026-46a6-8441-667fc459e1bd",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Server could not answer to the given route!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/a",
@@ -1755,16 +6333,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "400 error (wrong route)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"a"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:25:13 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Server could not answer to the given route!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (one)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12886b38-8d99-4869-9f5b-451b9637302c",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify([{\"id\": 1, \"name\": \"Task 1\", \"description\": \"process text\", \"priority\": 2, \"status\": \"started\", \"begin_date\": \"07-03-2020\", \"end_date\": \"08-03-2020\", \"project_id\": 2}]);\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/2/tasks/7",
@@ -1781,16 +6426,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (one)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/2/tasks/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"2",
+								"tasks",
+								"7"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:25:27 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Task 1\",\n        \"description\": \"process text\",\n        \"priority\": 2,\n        \"status\": \"started\",\n        \"begin_date\": \"07-03-2020\",\n        \"end_date\": \"08-03-2020\",\n        \"project_id\": 2\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 200 (all per project)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6106cd4c-93b3-4303-a996-4c2820a2f303",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify([]);\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/2/tasks",
@@ -1806,16 +6518,82 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 200 (all per project)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/2/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"2",
+								"tasks"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:25:49 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[]"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 error (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eda42961-292b-435d-b315-88a5577df47f",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5/tasks",
@@ -1831,16 +6609,82 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 error (project not found)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5",
+								"tasks"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:26:01 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Tasks - 404 error (task not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "60c43026-c4e3-427e-b07e-3510963007c0",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Task with that id related to that project not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1/tasks/7",
@@ -1857,16 +6701,83 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Tasks - 404 error (task not found)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1/tasks/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1",
+								"tasks",
+								"7"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:26:16 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Task with that id related to that project not found!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Projects - 200 (one and all tasks)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39080717-244d-40f5-bf1c-1eb8b6249c29",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify([{\"id\": 2, \"name\": \"Project 2\", \"description\": \"Cloud\", \"begin_date\": null, \"end_date\": null}, {\"id\": 3, \"name\": \"Project 3\", \"description\": \"AI\", \"begin_date\": \"12-03-2020\", \"end_date\": null}, {\"id\": 4, \"name\": \"Project 4\", \"description\": \"ML\", \"begin_date\": \"01-03-2020\", \"end_date\": \"10-03-2020\"}]);\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/1",
@@ -1881,16 +6792,81 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 200 (one and all tasks)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:26:34 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"name\": \"Project 2\",\n        \"description\": \"Cloud\",\n        \"begin_date\": null,\n        \"end_date\": null\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Project 3\",\n        \"description\": \"AI\",\n        \"begin_date\": \"12-03-2020\",\n        \"end_date\": null\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Project 4\",\n        \"description\": \"ML\",\n        \"begin_date\": \"01-03-2020\",\n        \"end_date\": \"10-03-2020\"\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "Projects - 200 (all projects and tasks)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9e703f6-b1da-4ab7-aebc-57eab9e8e4e8",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify([]);\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects",
@@ -1904,16 +6880,80 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 200 (all projects and tasks)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:26:46 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[]"
+				}
+			]
 		},
 		{
 			"name": "Projects - 404 (project not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "757625f9-2ee7-4dc4-a56d-fde0563d2812",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Compare responses\", function () { \r",
+							"    let expectedResponse = JSON.stringify({\"Error\": \"Project with that id not found!\"});\r",
+							"    let receivedResponse = JSON.stringify(pm.response.json());\r",
+							"    let identical = _.isEqual(receivedResponse, expectedResponse);\r",
+							"    pm.expect(identical).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {}
 				},
 				"url": {
 					"raw": "http://localhost:8080/projects/5",
@@ -1928,7 +6968,52 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Projects - 404 (project not found)",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projects/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projects",
+								"5"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "SimpleHTTP/0.6 Python/3.7.3"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 15 Mar 2020 13:26:58 GMT"
+						},
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Project with that id not found!\"\n}"
+				}
+			]
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
