@@ -1,0 +1,12 @@
+extends layout
+
+block content
+
+    h1= "Notes:"
+
+    if notes !== null && notes !== undefined
+        each note, index in notes
+            li
+                a(href='details/'.concat(note.id ? note.id : '')) Note #{index + 1}
+    else
+        p= "No notes!"
