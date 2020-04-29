@@ -1,0 +1,187 @@
+ az webapp list
+ 1995  sudo su
+ 1996  sudo apt-get update
+ 1997  sudo ACCEPT_EULA=Y apt-get install msodbcsql17
+ 1998  sudo pip3.6 install pyodbc
+ 1999  sudo -H  pip3.6 install pyodbc
+ 2000  sudo apt-get install unixodbc-dev
+ 2001  sudo -H  pip3.6 install pyodbc
+ 2002  history
+
+
+az group list
+ 1997  az container create --resource-group adamcristi98_rg_Linux_westeurope --name mycontainer --image mcr.microsoft.com/azuredocs/aci-helloworld --dns-name-label aci-demo --ports 80
+ 1998  az container create --resource-group adamcristi98_rg_Linux_westeurope --name mycontainer --image mcr.microsoft.com/azuredocs/aci-helloworld --dns-name-label container-testing --ports 80
+ 1999  az container show --resource-group adamcristi98_rg_Linux_westeurope --name mycontainer --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
+ 2000  docker images
+ 2001  az --version
+ 2002  func init LocalFunctionProj --dotnet
+ 2003  az
+ 2004  wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
+ 2005  sudo dpkg -i packages-microsoft-prod.deb
+ 2006  sudo apt-get update
+ 2007  sudo apt-get install azure-functions-core-tools
+ 2008  func init LocalFunctionProj --dotnet
+ 2009  func init LocalFunctionProj --python
+ 2010  az
+ 2011  az group resource -l eastus -n Tema4-Cloud-Computing
+ 2012  az group create -l eastus -n Tema4-Cloud-Computing
+ 2013  pwd
+ 2014  cd Documents/CC/Tema4/
+ 2015  s -al
+ 2016  ls -al
+ 2017  cd database_api/
+ 2018  ls -al
+ 2019  cd ..
+ 2020  docker build database_api tema4-cloud
+ 2021  docker build ./database_api tema4-cloud
+ 2022  docker build ./database_api -t tema4-cloud
+ 2023  cat database_api/requirements.txt 
+ 2024  docker build ./database_api -t tema4-cloud
+ 2025  cat database_api/requirements.txt 
+ 2026  docker build ./database_api -t tema4-cloud
+ 2027  docker image list
+ 2028  docker images
+ 2029  docker run -d -p 8080:80 tema4-cloud
+ 2030  docker run -d -p 8080:8080 tema4-cloud
+ 2031  docker run -d -p 80:8080 tema4-cloud
+ 2032  docker run -d -p 80:80 tema4-cloud
+ 2033  docker run -d -p 8080:80 tema4-cloud
+ 2034  docker run -d tema4-cloud
+ 2035  docker container list
+ 2036* 
+ 2037  docker build ./database_api -t tema4-cloud
+ 2038  docker images
+ 2039  docker run -d -p 8080:80 tema4-cloud
+ 2040  docker run -d -p 8080:8080 tema4-cloud
+ 2041  docker run -d -p 80:8080 tema4-cloud
+ 2042  docker run -d -p 80:80 tema4-cloud
+ 2043  docker container list
+ 2044  docker build ./database_api -t tema4-cloud
+ 2045  docker run -d -p 8080:8080 tema4-cloud
+ 2046  docker run -d -p 8080:80 tema4-cloud
+ 2047  docker images
+ 2048  docker container list
+ 2049  docker build ./database_api -t api-db
+ 2050  docker images
+ 2051  docker run -d -p 8080:80 api-db
+ 2052  docker build ./app -t tema4-cloud
+ 2053  docker run -d -p 8080:80 tema4-cloud
+ 2054  docker run -d -p 8080:8080 tema4-cloud
+ 2055  docker run -d -p 80:8080 tema4-cloud
+ 2056  docker run -d -p 80:80 tema4-cloud
+ 2057  docker container list
+ 2058  docker build ./database_api -t api-db
+ 2059  cd app/
+ 2060  docker build . -t tema4-cloud
+ 2061  docker images
+ 2062  docker build . -t tema4-cloud
+ 2063  docker run -d -p 8080:8080 tema4-cloud
+ 2064  docker containers
+ 2065  docker container
+ 2066  docker container lust
+ 2067  docker container list
+ 2068  docker run -d -p 8080:80 tema4-cloud
+ 2069  docker run -d -p 80:80 tema4-cloud
+ 2070  docker run -d -p 80:8080 tema4-cloud
+ 2071  docker container list
+ 2072  docker run tema4-cloud
+ 2073  docker build . -t tema4-cloud
+ 2074  docker run tema4-cloud
+ 2075  docker run -d -p 8080:80 tema4-cloud
+ 2076  docker container list
+ 2077  docker run -d -p 8080:8080 tema4-cloud
+ 2078  docker rm 65c7b94ce974 
+ 2079  sudo docker rm 65c7b94ce974 
+ 2080  sudo docker rm -f 65c7b94ce974 
+ 2081  docker container list
+ 2082  docker run -d -p 8080:8080 tema4-cloud
+ 2083  docker container list
+ 2084  docker stop 2076d8351bcb   
+ 2085  docker rm 2076d8351bcb   
+ 2086  docker container list
+
+
+az webapp list
+ 1995  az create --resource-group tema4-cloud-computing --name api-database --sku Basic
+ 1996  az acr create --resource-group tema4-cloud-computing --name api-database --sku Basic
+ 1997  az acr create --resource-group tema4-cloud-computing --name apiDatabase --sku Basic
+ 1998  az acr login --name apiDatabase
+ 1999  az acr show --name apiDatabase --query loginServer --output table
+ 2000  docker images
+ 2001  docker tag tema4-cloud apidatabase.azurecr.io
+ 2002  docker tag tema4-cloud apidatabase.azurecr.io/tema4-cloud:v1
+ 2003  docker images
+ 2004  docker push apidatabase.azurecr.io/tema4-cloud:v1
+ 2005  az acr repository list --name apiDatabase --output table
+ 2006  az acr repository show-tags --name apiDatabase --output table
+ 2007  az acr repository show-tags --name apiDatabase --repository tema4-cloud --output table
+ 2008  az acr show --name apiDatabase --query loginServer
+ 2009  az create --resource-group tema4-cloud --name app --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 -- memory 1 --registry-login-server apidatabase.azurecr.io --dns-name-label api-database-container --ports 80
+ 2010  az container create --resource-group tema4-cloud --name app --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 -- memory 1 --registry-login-server apidatabase.azurecr.io --dns-name-label api-database-container --ports 80
+ 2011  az container create --resource-group tema4-cloud --name app --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 --memory 1 --registry-login-server apidatabase.azurecr.io --dns-name-label api-database-container --ports 80
+ 2012  az container create --resource-group tema4-cloud-computing --name app --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 --memory 1 --registry-login-server apidatabase.azurecr.io --dns-name-label api-database-container --ports 80
+ 2013  az login
+ 2014  az container create --resource-group tema4-cloud-computing --name app --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 --memory 1 --registry-login-server apidatabase.azurecr.io --registry-username e9af662a-5187-4324-9d4f-cf67a9d8350b --dns-name-label api-database-container --ports 80
+ 2015  az container create --resource-group tema4-cloud-computing --name tema4-cloud --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 --memory 1 --registry-login-server apidatabase.azurecr.io --registry-username e9af662a-5187-4324-9d4f-cf67a9d8350b --dns-name-label api-database-container --ports 80
+ 2016  docker images
+ 2017  az container create --resource-group tema4-cloud-computing --name apiDatabase --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 --memory 1 --registry-login-server apidatabase.azurecr.io --registry-username e9af662a-5187-4324-9d4f-cf67a9d8350b --dns-name-label api-database-container --ports 80
+ 2018  az container create --resource-group tema4-cloud-computing --name my-api-database --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 --memory 1 --registry-login-server apidatabase.azurecr.io --registry-username e9af662a-5187-4324-9d4f-cf67a9d8350b --dns-name-label api-database-container --ports 80
+ 2019  az container create --resource-group tema4-cloud-computing --name my-api-database --image apidatabase.azurecr.io/tema4-cloud:v1 --cpu 1 --memory 1 --registry-login-server apidatabase.azurecr.io --registry-username apiDatabase --registry-password a6/TIhn0o/MfM03o4Rq3mj9s2APAFiyf --dns-name-label api-database-container --ports 80
+ 2020  az container show --resource-group tema4-cloud-computing --name my-api-database --query ipAdress.fqdn
+ 2021  az container show --resource-group tema4-cloud-computing --name my-api-database --query ipAddress.fqdn
+ 2022  docker images
+ 2023  history
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ locate LocalFunctionProj
+ 1995  cd LocalFunctionProj/
+ 1996  ls -al
+ 1997  func new --name HttpExample --template "HTTP trigger"
+ 1998  ls -al
+ 1999  cd HttpExample/
+ 2000  ls -al
+ 2001  cat __init__.py 
+ 2002  car function.json 
+ 2003  cat function.json 
+ 2004  func start
+ 2005  cd ..
+ 2006  func start
+ 2007  az storage account create --name tema4-storage --location eastus --resource-group tema4-cloud-computing --sku Standard_LRS
+ 2008  az storage account create --name tema4 --location eastus --resource-group tema4-cloud-computing --sku Standard_LRS
+ 2009  az functionapp create --resource-group tema4-cloud-computing --os-type Linux --consumption-plan-location eastus --runtime python --runtime-version 3.6 --functions-version 2 --name tema4-test-function --storage-account tema4
+ 2010  az webapp lis
+ 2011  az webapp list
+ 2012  az functionapp create --resource-group tema4-cloud-computing --os-type Linux --consumption-plan-location eastus --runtime python --runtime-version 3.6 --functions-version 2 --name tema4-test-function --storage-account tema4
+ 2013  az functionapp create --resource-group tema4-cloud-computing --os-type Linux --consumption-plan-location eastus2 --runtime python --runtime-version 3.6 --functions-version 2 --name tema4-test-function --storage-account tema4
+ 2014  func azure functionapp publish tema4-test-function
+ 2015  ls -all
+ 2016  car host.json 
+ 2017  cat host.json 
+ 2018  cat local.settings.json 
+ 2019  cat requirements.txt 
+ 2020  cat .vscode/
+ 2021  cd HttpExample/
+ 2022  ls -al
+ 2023  cat __init__.py 
+
+
