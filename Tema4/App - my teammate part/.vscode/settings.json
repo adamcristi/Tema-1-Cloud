@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/e9af662a-5187-4324-9d4f-cf67a9d8350b/resourceGroups/tema4-cloud-computing/providers/Microsoft.Web/sites/tema4-cc-notes-app",
+    "appService.deploySubpath": "app"
+}

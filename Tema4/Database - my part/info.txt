@@ -1,0 +1,2 @@
+database container instance adress: http://cloud-database.eastus.azurecontainer.io/
+logs database function address: https://tema4-function-logs-database.azurewebsites.net/api/logs?code=5mnIzMhFmNjOqOr6VgtstJ8JSm0Zgyolyb2Ia9k7KK/CEyVAevMwSQ==

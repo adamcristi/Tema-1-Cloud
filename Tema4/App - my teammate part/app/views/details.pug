@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h2= "Note Details"
+    if note !== undefined
+        if note.text !== undefined
+            h= "Text:"
+            li= "\t" + note.text
+        if note.text_language !== undefined
+            h= "Text language:"
+            li= "\t" + note.text_language
+        if note.translated !== undefined
+            h= "Translated text:"
+            li= "\t" + note.translated
+        if note.translated_language !== undefined
+            h= "Translated language:"
+            li= "\t" + note.translated_language
+        if note.sentiment !== undefined
+            h= "Sentiment"
+            if note.sentiment.score !== undefined
+                li= "Score: " + note.sentiment.score
+    else
+        p= "No details available!"
+
