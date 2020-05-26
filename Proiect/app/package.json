@@ -1,0 +1,25 @@
+{
+  "name": "app-ml-cloud",
+  "version": "1.0.0",
+  "description": "app-ml-cloud server",
+  "main": "server.js",
+  "dependencies": {
+    "@google-cloud/automl": "^2.0.0",
+    "@google-cloud/storage": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.16.3",
+    "express-validator": "^6.4.0",
+    "multer": "^1.4.2",
+    "pug": "^2.0.4"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,25 @@
+extends index
+
+block content
+    div(class="w3-main" style="margin-left:250px; margin-top:43px; height:calc(100% - 43px);")
+        if datasets !== null && datasets !== undefined
+            div(class="w3-container" style="padding-top:40px; text-align:center;")
+                <h1><b>Datasets</b></h1>
+            div(class="w3-container")
+                ul(class="w3-ul w3-card-4 w3-white w3-padding-16")
+                    each datasetManager in datasets
+                        li(class="w3-padding-16")
+                            span(class="w3-xlarge")
+                                b Name
+                                | : #{datasetManager.displayName}
+                            br
+                            div(class="w3-row" style="margin-top:5px;")
+                                span(class="w3-large" style="margin-left:25px;")= 'Status: '.concat(datasetManager.operation_done === true ? 'Done' : 'Loading...')
+                                span(class="w3-large" style="margin-left:40px;")= 'Dataset ID: ' + datasetManager.datasetID
+        else
+            div(class="w3-container" style="padding-top:40px; text-align:center;")
+                <h1><b>No datasets uploaded!</b></h1>
+
+    script.
+        const datasetMenu = document.getElementById("datasetMenu");
+        datasetMenu.classList.add("w3-blue");

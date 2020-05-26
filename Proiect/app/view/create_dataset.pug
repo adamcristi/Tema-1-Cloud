@@ -1,0 +1,34 @@
+extends index
+
+block content
+    div(class="w3-main" style="margin-left:250px; margin-top:43px; height:calc(100% - 43px);")
+        div(class="w3-third")
+            br
+        div(class="w3-third", style="padding-top:8%;")
+            div(class="w3-card-4", style="background-color:white;")
+                div(class="w3-container w3-blue w3-padding-16" style="text-align:center")
+                    h2="Upload Files"
+
+                form(class="w3-container w3-padding-16" method="POST" action="/datasets/create_dataset" enctype="multipart/form-data")
+                    p
+                    label(class="w3-text-blue" style="margin-top:1%;")
+                        b Name File / Files
+                    input(class="w3-input w3-border w3-light-grey" type="text", name="name")
+                    p
+                    label(class="w3-text-blue" style="margin-top:1%;")
+                        b Image Samples
+                        br
+                    input(class="w3-file" type="file", name="samples", accept='image/*', multiple)
+                    p
+                    label(class="w3-text-blue" style="margin-top:1%;")
+                        b CSV Files
+                        br
+                    input(class="w3-file" type="file", name="csv_file", accept='text/*')
+                    p
+                    input(class="w3-btn w3-blue" type="submit" value="Create dataset" style="margin-top:1%;")
+        div(class="w3-third")
+            br
+
+    script.
+        const uploadMenu = document.getElementById("uploadMenu");
+        uploadMenu.classList.add("w3-blue");

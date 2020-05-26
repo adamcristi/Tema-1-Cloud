@@ -1,0 +1,15 @@
+gcloud auth login
+gcloud projects list
+gcloud config set project <project_name>
+
+cd pana la fisierul functiei
+
+Comanda create/update function gcloud functions deploy logging_database --runtime python37 --trigger-http --allow-unauthenticated --region us-central1
+
+body example
+{
+ 	"method": "POST",
+ 	"route": "https://app-li2wmgcweq-ew.a.run.app/notes/get/pykA0E1rnzeD7AI55YzR",
+ 	"response": "{'sentiment':{'magnitude':0.5, 'score':-0.5}, 'text':'ceva text', 'text_language':'ro', 'translated':'some text', 'translated_language':'en'}",
+ 	"status_code": "200"
+}

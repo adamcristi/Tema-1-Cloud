@@ -1,0 +1,81 @@
+app.use(express.static('public'))
+doctype html
+html(lang="en")
+    head
+        title=title
+        meta(charset="UTF-8")
+        meta(name="viewport"  content="width=device-width, initial-scale=1")
+        link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+        style(type="text/css").
+            html,body,h1,h2,h3,h4,h5 {
+                font-family: "Raleway", sans-serif
+            }
+
+    body(class="w3-light-grey")
+        <!-- Top container -->
+        div(class="w3-bar w3-top w3-black w3-large" style="z-index:4")
+            button(class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open_or_close();")
+                i(class="fa fa-bars")  
+                ="Menu"
+            span(class="w3-bar-item w3-right")="Machine Learning in Cloud"
+
+        <!-- Sidebar menu -->
+        nav(class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:250px;" id="mySidebar")
+            br
+            div(class="w3-container")
+                div(class="w3-col s8")
+                    img(src='/static/images/logo_mic.png' alt="Small Logo" style="max-width:100%; max-height:100%;")
+            hr
+            div(class="w3-container")
+                h5="Dashboard"
+            div(class="w3-bar-block")
+                a(href="/" class="w3-bar-item w3-button w3-padding" id="homeMenu")
+                    i(class="fa fa-home fa-fw")
+                    ="  Home"
+                a(href="/datasets/create_dataset" class="w3-bar-item w3-button w3-padding" id="uploadMenu")
+                    i(class="fa fa-upload fa-fw")
+                    ="  Upload data"
+                a(href="/datasets" class="w3-bar-item w3-button w3-padding" id="datasetMenu")
+                    i(class="fa fa-files-o fa-fw")
+                    ="  Data uploaded"
+                a(href="/models/create_model" class="w3-bar-item w3-button w3-padding" id="createMenu")
+                    i(class="fa fa-cogs fa-fw")
+                    ="  Create model"
+                a(href="/models" class="w3-bar-item w3-button w3-padding" id="modelMenu")
+                    i(class="fa fa-bars fa-fw")
+                    ="  Models"
+                a(href="#" class="w3-bar-item w3-button w3-padding" id="predictionMenu")
+                    i(class="fa fa-tags fa-fw")
+                    ="  Predictions"
+                a(href="#" class="w3-bar-item w3-button w3-hide-large w3-padding-16" onclick="w3_close()"
+                    title="close menu")
+                    i(class="fa fa-remove fa-fw")
+                    ="  Close Menu"
+
+        <!-- Overlay effect when opening sidebar on small screens -->
+        div(class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+            title="close side menu" id="myOverlay")
+
+        block content
+
+        script.
+            const mySidebar = document.getElementById("mySidebar");
+            const overlayBg = document.getElementById("myOverlay");
+            function w3_open_or_close() {
+                if (mySidebar.style.display === "none") {
+                    mySidebar.style.display = "block";
+                    overlayBg.style.display = "block";
+                } else if (mySidebar.style.display === "block") {
+                    mySidebar.style.display = "none";
+                    overlayBg.style.display = "none";
+                } else {
+                    mySidebar.style.display = "block";
+                    overlayBg.style.display = "block";
+                }
+            }
+            function w3_close() {
+                mySidebar.style.display = "none";
+                overlayBg.style.display = "none";
+            }

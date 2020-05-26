@@ -1,0 +1,76 @@
+ls -al
+ 1460  gcloud builds submit --config cloudbuild.yaml .
+ 1461  gcloud projects list
+ 1462  gcloud config set project tema3-cloud-computing-272819
+ 1463  gcloud builds submit --config cloudbuild.yaml .
+ 1464  gcloud projects list
+ 1465  gcloud compute project-info describe --project tema3-cloud-computing-272819 
+ 1466  gcloud builds submit --config cloudbuild.yaml .
+ 1467  sudo pip3.6 install --user flask
+ 1468  sudo pip3.6 install --user firebase-admin
+ 1469  curl
+ 1470  curl curl --help
+ 1471  curl -X POST https://app-li2wmgcweq-uc.a.run.app/add -d json={'id': '1', 'title': 'Write a blog post'}
+ 1472  curl -X POST https://app-li2wmgcweq-uc.a.run.app/add -d {'id': '1', 'title': 'Write a blog post'}
+ 1473  curl -X POST https://app-li2wmgcweq-uc.a.run.app/add -d 'id': '1'
+ 1474  curl -X POST https://app-li2wmgcweq-uc.a.run.app/add -d '1'
+ 1475  curl -X POST https://app-li2wmgcweq-uc.a.run.app/list
+ 1476  curl -X GET https://app-li2wmgcweq-uc.a.run.app/list
+ 1477  cd Documents/Github/
+ 1478  ls -al
+ 1479  git clone https://github.com/adamcristi/Tema3-Cloud.git
+ 1480  cd Tema3-Cloud/
+ 1481  ls -al
+ 1482  git commit -m "First update"
+ 1483  git add .
+ 1484  git commit -m "First update"
+ 1485  git push
+ 1486  git commit -m "Cloud function finished"
+ 1487  git add .
+ 1488  git commit -m "Cloud function finished"
+ 1489  git push
+ 1490  history
+ 1491  cd /home/cristian_adam/Documents/CC/Tema3
+ 1492  ls -al
+ 1493  gcloud builds submit --config cloudbuild.yaml .
+ 1494  sudo caat cloudbuild.yaml 
+ 1495  sudo cat cloudbuild.yaml 
+ 1496  gcloud builds submit --config cloudbuild.yaml .
+ 1497  sudo cat cloudbuild.yaml 
+ 1498  gcloud builds submit --config cloudbuild.yaml .
+ 1499  gcloud run services list --platform managed
+ 1500  gcloud run services add-iam-policy-binding app --member="allUsers" --role="roles/run.invoker"
+ 1501  cat cloudbuild.yaml 
+ 1502  gcloud builds submit --config cloudbuild.yaml .
+ 1503  gcloud run services add-iam-policy-binding app --member "allUsers" --role "roles/run.invoker"
+ 1504  cat cloudbuild.yaml 
+ 1505  gcloud builds submit --config cloudbuild.yaml .
+ 1506  cat cloudbuild.yaml 
+ 1507  gcloud builds submit --config cloudbuild.yaml .
+ 1508  cat cloudbuild.yaml 
+ 1509  gcloud builds submit --config cloudbuild.yaml .
+ 1510  cat cloudbuild.yaml 
+ 1511  gcloud builds submit --config cloudbuild.yaml .
+ 1512  cat cloudbuild.yaml 
+ 1513  gcloud builds submit --config cloudbuild.yaml .
+ 1514  gcloud app versions list
+ 1515  gcloud app versions list --service=default
+ 1516  gcloud app browse
+ 1517  cat cloudbuild.yaml 
+ 1518  gcloud builds submit --config cloudbuild.yaml .
+ 1519  cat cloudbuild.yaml 
+ 1520  gcloud builds submit --config cloudbuild.yaml .
+ 1521  ls -a;
+ 1522  ls -al
+ 1523  cd database_api/
+ 1524  ls -al
+ 1525  gcloud builds submit --config cloudbuild.yaml .
+ 1526  cd Documents/CC/Tema3
+ 1527  ls -al
+ 1528  cd loggers_database/
+ 1529  ls -al
+ 1530  gcloud functions deploy logging_database --runtime python37 --trigger-http --allow-unauthenticated
+ 1531  cd ..
+ 1532  cd database_logging/
+ 1533  ls -al
+

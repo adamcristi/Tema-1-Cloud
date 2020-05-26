@@ -1,0 +1,25 @@
+extends index
+
+block content
+    div(class="w3-main" style="margin-left:250px; margin-top:43px; height:calc(100% - 43px);")
+        if models !== null && models !== undefined
+            div(class="w3-container" style="padding-top:40px; text-align:center;")
+                <h1><b>Models</b></h1>
+            div(class="w3-container")
+                ul(class="w3-ul w3-card-4 w3-white w3-padding-16")
+                    each model in models
+                        li(class="w3-padding-16")
+                            span(class="w3-xlarge")
+                                b Name
+                                | : #{model.modelName}
+                            br
+                            div(class="w3-row" style="margin-top:5px;")
+                                span(class="w3-large" style="margin-left:25px;")= 'Status: '.concat(model.operation_done === true ? 'Done' : 'Training...')
+                                span(class="w3-large" style="margin-left:40px;")= 'Model ID: '.concat(model.modelID === '' ? 'No id yet...' : model.modelID)
+        else
+            div(class="w3-container" style="padding-top:40px; text-align:center;")
+                <h1><b>No models created!</b></h1>
+
+    script.
+        const modelMenu = document.getElementById("modelMenu");
+        modelMenu.classList.add("w3-blue");
