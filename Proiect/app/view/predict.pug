@@ -7,23 +7,25 @@ block content
         div(class="w3-third", style="padding-top:8%;")
             div(class="w3-card-4", style="background-color:white;")
                 div(class="w3-container w3-blue w3-padding-16" style="text-align:center")
-                    h2="Create Model"
+                    h2="Make a Prediction"
 
-                form(class="w3-container w3-padding-16" method="POST" action="/models/create_model")
+                form(class="w3-container w3-padding-16" method="POST" action="/predict" enctype="multipart/form-data")
                     p
                     label(class="w3-text-blue" style="margin-top:1%;")
-                        b Model Name:
-                    input(class="w3-input w3-border w3-light-grey" type="text" name="name")
-                    p
-                    label(class="w3-text-blue" style="margin-top:1%;")
-                        b Dataset
+                        b Image
                         br
-                    select(class="w3-select w3-light-grey" name='datasetId')
+                    input(class="w3-file" type="file", name="prediction_file", accept='image/*')
+                    p
+                    label(class="w3-text-blue" style="margin-top:1%;")
+                        b Model
+                        br
+                    select(class="w3-select w3-light-grey" name='modelId')
                         option(value='' selected=true) None
-                        for dataset in datasets
-                            option(value=dataset.datasetID, selected=false) #{dataset.displayName}
+                        for model in models
+                            if model.modelID !== '' && model.operation_done === true
+                                option(value=model.modelID, selected=false) #{model.modelName}
                     br
-                    input(class="w3-btn w3-blue" type="submit", value="Create Model" style="margin-top:3%;")
+                    input(class="w3-btn w3-blue" type="submit", value="Make Prediction" style="margin-top:3%;")
             br
             if errors
                 div(class="w3-card-4", style="background-color:white;")
@@ -37,5 +39,5 @@ block content
             br
 
     script.
-        const createMenu = document.getElementById("createMenu");
-        createMenu.classList.add("w3-blue");
+        const makeMenu = document.getElementById("makeMenu");
+        makeMenu.classList.add("w3-blue");

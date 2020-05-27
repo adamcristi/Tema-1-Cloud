@@ -1,0 +1,17 @@
+extends index
+
+block content
+    div(class="w3-main" style="margin-left:250px; margin-top:43px; height:calc(100% - 43px);")
+        if predictions !== undefined && predictions !== null
+            div(class="w3-container" style="padding-top:40px; text-align:center;")
+                <h1><b>Prediction Results</b></h1>
+            div(class="w3-container")
+                ul(class="w3-ul w3-card-4 w3-white w3-padding-16")
+                    each prediction in predictions
+                        li(class="w3-padding-16")
+                            div(class="w3-row")
+                                span(class="w3-large" style="margin-left:25px;")= 'Predicted class name: '.concat(prediction.className)
+                                span(class="w3-large" style="margin-left:40px;")= 'Predicted class score: '.concat(prediction.score)
+        else
+            div(class="w3-container" style="padding-top:40px; text-align:center;")
+                <h1><b>No predictions available!</b></h1>

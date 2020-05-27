@@ -5,10 +5,12 @@ const express = require('express');
 const appDB = require('../controller/appDB');
 
 const {AutoMlClient} = require('@google-cloud/automl').v1;
+const {PredictionServiceClient} = require('@google-cloud/automl').v1;
 
 class visionML {
 
     static automl_client = new AutoMlClient();
+    static automl_prediction_client = new PredictionServiceClient();
 
     static create_dataset = async (displayName, classificationType, callback) => {
         let request = {
@@ -110,8 +112,8 @@ class visionML {
             }
         };
 
-        visionML.automl_client.predict(request)
-            .then(response => {
+        visionML.automl_prediction_client.predict(request)
+            .then(([response]) => {
                 return response.payload;
             })
             .then(payload => {
